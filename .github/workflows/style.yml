@@ -2,7 +2,7 @@ name: Style
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main action_test ]
   pull_request:
 
 jobs:
