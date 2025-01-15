@@ -6,8 +6,16 @@
 
 Deploying long-context LLMs is costly due to the linear growth of the key-value (KV) cache in transformer models. For example, handling 1M tokens with Llama 3.1-70B in float16 requires up to 330GB of memory. This repository implements multiple KV cache pruning methods and benchmarks using [🤗 transformers](https://huggingface.co/docs/transformers/en/index), aiming to simplify the development of new methods for researchers and developers in this field.
 
-## Installation
+## A custom implementation of AdaKV under NVIDIA/kvpress open-source project!
 
+In this fork, we have implemented AdaKV under KVPress with a custom CUDA kernel, enabling easy customization of head-specific compression. Additionally, the official (NVIDIA/KVPress)[https://github.com/NVIDIA/kvpress] repository provides a simpler way to simulate AdaKV's performance. The key difference lies in whether actual compression is achieved. The official code offers a fast and convenient starting point, and this repository allows you to test the practical compression benefits likes peak memory usage and decoding latency.
+Additionally, there are other implementations of AdaKV available. For example, [Cloudflare](https://github.com/IsaacRe/vllm-kvcompress) provides an AdaKV implementation integrated into VLLM, alongside the (original AdaKV code)[https://github.com/FFY0/AdaKV]. We encourage everyone to explore these versions, and we hope they can be helpful to your work.
+
+## Custom Evaluation
+![RULER](evaluation/assets/ruler_4096_average%20score.png)
+
+
+## Install
 ```bash
 pip install kvpress
 ```
