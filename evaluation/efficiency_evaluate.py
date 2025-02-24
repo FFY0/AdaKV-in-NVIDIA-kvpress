@@ -72,8 +72,6 @@ def efficiency_evaluate(
 
     context_length=input_ids.shape[1]
 
-    # cache = DynamicCache()
-
     if isinstance(press, AdaScorerPress):
         cache = DynamicCacheSplitHeadFlatten()
     else:
@@ -92,9 +90,6 @@ def efficiency_evaluate(
             position_ids=position_ids,
             num_logits_to_keep=1,
         )
-    # assert cache.get_seq_length() ==  position_ids + i, f"cache length {cache.get_seq_length()} should be equal to the position_ids length {position_ids.item() + i}"
-    # set the context length in the press to prevent the press from compressing the context
-    # only allow the press to compress the cot 
     position_ids = position_ids[:, -1:] + 1
     generated_ids = [outputs.logits[0, -1].argmax()]
 
@@ -108,6 +103,7 @@ def efficiency_evaluate(
             position_ids=position_ids + i,
         )
         # new_id = outputs.logits[0, -1].argmax()
+
     torch.cuda.synchronize()
     t = time.time() - t
     decoding_latency = t / ave_token_num
