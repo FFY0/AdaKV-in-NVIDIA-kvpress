@@ -96,8 +96,8 @@ class BasePress:
         q_len = hidden_states.shape[1]
 
         # Don't compress after pre-filling
-        if cache.seen_tokens > q_len:
-            return output
+        # if cache.seen_tokens > q_len:
+            # return output
 
         if isinstance(cache, QuantizedCache):
             keys = cache._dequantize(cache._quantized_key_cache[module.layer_idx])
